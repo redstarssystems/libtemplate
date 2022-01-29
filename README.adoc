@@ -42,7 +42,7 @@ requirements Install project requirements
 
 See also:
 
-* https://github.com/redstarssystems/apptemplate[Application template]
+* https://github.com/redstarssystems/apptemplate[Application project template]
 
 == Usage
 
