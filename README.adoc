@@ -117,4 +117,4 @@ sudo bash < <(curl -s https://raw.githubusercontent.com/babashka/babashka/master
 == License
 
 Copyright © 2021 {Author} +
-Distributed under the Eclipse Public License 2.0 or (at your option) any later version.
+Distributed under the Eclipse Public License 1.0 or (at your option) any later version.
