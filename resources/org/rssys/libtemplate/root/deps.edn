@@ -30,6 +30,6 @@
 
              ;; slf4j-nop is required to suppress warning "org.slf4j.impl.StaticLoggerBinder"
              :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "1.4.0"}
-                                     org.slf4j/slf4j-nop {:mvn/version "1.7.33"}}
+                                     org.slf4j/slf4j-nop {:mvn/version "1.7.35"}}
                         :main-opts  ["-m" "antq.core"]}
              }}

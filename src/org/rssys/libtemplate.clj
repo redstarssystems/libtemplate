@@ -17,6 +17,7 @@
   Result is used as the EDN for the template."
   [edn data]
   ;; must return the whole EDN hash map
-  (println "Create new project with the following settings" \newline)
+  (println "\nCreate new project with the following settings" \newline)
   (pprint/pprint data)
+  (println)
   edn)

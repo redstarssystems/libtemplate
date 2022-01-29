@@ -10,8 +10,16 @@ This is a template project for use with https://github.com/seancorfield/deps-new
 As originally generated, it will produce a new library project when run:
 
 ----
-$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:local/root "."}}}' -Tnew create :template org.rssys/libtemplate :name myusername/mycoollib
+$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:git/sha "1229c9dc7030c2f53ac5461ec54c7d37b2cd9fbf" :git/url "https://github.com/redstarssystems/libtemplate.git"}}}' -Tnew create :template org.rssys/libtemplate :name myusername/mycoollib
 ----
+or clone this project and run from its folder:
+----
+$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:local/root "."}}}' -Tnew create :template org.rssys/libtemplate :name myusername/mycoollib :target-dir ../mycoollib
+----
+
+
+
+
 
 Assuming you have installed `deps-new` as your `new` "tool" via:
 

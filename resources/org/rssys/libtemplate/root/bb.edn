@@ -12,25 +12,48 @@
     (def ansi-reset "\u001B[0m")
     (def ansi-yellow "\u001B[33m")
     (def date-formatter (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd HH:mm:ss"))
-    (defn current-date [] (.format (java.time.LocalDateTime/now) date-formatter))
+    (def current-timestamp (System/currentTimeMillis))
+    (defn current-date [] (.format
+                            (java.time.LocalDateTime/ofInstant
+                              (java.time.Instant/ofEpochMilli current-timestamp)
+                              (java.time.ZoneId/systemDefault))
+                            date-formatter))
 
     (defn prf [& args] (println (apply format args)))
 
-    (defn exec [cmd] (-> (process cmd {:out :string}) check :out str/trim-newline))
-    (defn safe-exec [cmd] (try (exec cmd) (catch Exception e (println (format "exec error: %s" (.getMessage e))))))
+    (def debug-exec? false)
+
+    (defn exec
+      "Execute command and put its output to a string"
+      [cmd]
+      (when debug-exec?
+        (prf "Execute command: '%s'" cmd))
+      (-> (process cmd {:out :string}) check :out str/trim-newline))
+
+    (defn safe-exec
+      "Execute command ignoring bad exit codes and put its output to a string."
+      [cmd]
+      (try (exec cmd)
+           (catch Exception e (prf "command failed: '%s', error message: '%s'" cmd (.getMessage e)))))
 
     (def target-folder "target")
     (def release-branches #{"master"})
     (def deployable-branches #{"master" "develop"})
 
     (defn get-project-env []
+      (println "Ignore git errors if there is no fully initialized git repo.\n")
       (let [git-branch (safe-exec "git rev-parse --abbrev-ref HEAD")
             release? (contains? release-branches git-branch)
             snapshot? (not release?)]
-        {:build-time  (current-date)
+        {:target-folder target-folder
+         :release-branches release-branches
+         :deployable-branches deployable-branches
+         :build-time  (current-date)
+         :build-timestamp current-timestamp
          :git-url     (safe-exec "git config --get remote.origin.url")
          :git-branch  git-branch
          :git-sha     (safe-exec "git rev-parse --short HEAD")
+         :git-rev-count (safe-exec "git rev-list HEAD --count")
          :release?    release?
          :snapshot?   (not release?)
          :deployable? (contains? deployable-branches git-branch)})))
