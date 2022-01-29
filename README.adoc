@@ -46,13 +46,13 @@ See also:
 
 == Usage
 
-Before run this template ensure you have installed {deps-new} and {babashka} (see <<_install_prerequisites>>). +
+Before run this template ensure you have installed {deps-new} and {babashka} (see <<install-prerequisites>> ). +
 
 To generate new library project run:
 
 [source, bash]
 ----
-$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:git/sha "f99fccdead672ffc1738d620e2eaf8ef89bfa2fc" :git/url "https://github.com/redstarssystems/libtemplate.git"}}}' -Tnew create :template org.rssys/libtemplate :name com.example/lib01
+$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:git/sha "a9e39846672390f08853435a3f0226ee7a52cb6f" :git/url "https://github.com/redstarssystems/libtemplate.git"}}}' -Tnew create :template org.rssys/libtemplate :name com.example/lib01
 
 cd lib01
 ----
@@ -67,7 +67,7 @@ cd ../lib01
 
 NOTE: Please, see `README.adoc` in a root folder of created project.
 
-
+[#install-prerequisites]
 === Install prerequisites
 
 All these tools you need to install only once.
