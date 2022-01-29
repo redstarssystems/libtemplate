@@ -48,11 +48,11 @@ See also:
 
 Before run this template ensure you have installed {deps-new} and {babashka} (see <<install-prerequisites>> ). +
 
-To generate new library project run:
+Example: to generate new library project for artifact `com.example/lib01` run:
 
 [source, bash]
 ----
-$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:git/sha "e25a1366c92bd4d41b49dde2ac5399b15584cdb8" :git/url "https://github.com/redstarssystems/libtemplate.git"}}}' -Tnew create :template org.rssys/libtemplate :name com.example/lib01
+$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:git/tag "0.1.0" :git/sha "5c2f1c3" :git/url "https://github.com/redstarssystems/libtemplate.git"}}}' -Tnew create :template org.rssys/libtemplate :name com.example/lib01
 
 cd lib01
 ----
