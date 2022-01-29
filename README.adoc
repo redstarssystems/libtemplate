@@ -52,7 +52,7 @@ To generate new library project run:
 
 [source, bash]
 ----
-$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:git/sha "55c7b01ffb0f99a30f1a6c6570b9480d60d563c3" :git/url "https://github.com/redstarssystems/libtemplate.git"}}}' -Tnew create :template org.rssys/libtemplate :name com.example/lib01
+$ clojure -Sdeps '{:deps {org.rssys/libtemplate {:git/sha "da808b2dc7c120ac720ef217e99f0cc97b3a7753" :git/url "https://github.com/redstarssystems/libtemplate.git"}}}' -Tnew create :template org.rssys/libtemplate :name com.example/lib01
 
 cd lib01
 ----
