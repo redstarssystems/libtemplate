@@ -18,7 +18,7 @@
              :test     {:extra-deps  {org.clojure/test.check          {:mvn/version "1.1.1"}
                                       healthsamurai/matcho            {:mvn/version "0.3.9"}
                                       lambdaisland/kaocha             {:mvn/version "1.60.977"}
-                                      io.github.seancorfield/deps-new {:git/tag "v0.4.8" :git/sha "a059d98"}
+                                      io.github.seancorfield/deps-new {:git/tag "v0.4.9" :git/sha "ba30a76"}
                                       lambdaisland/kaocha-cloverage   {:mvn/version "1.0.75"}}
                         :extra-paths ["resources" "test" "test/resources"]
                         :jvm-opts    []
