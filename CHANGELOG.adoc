@@ -1,7 +1,7 @@
 = Change Log
 
 
-== [0.1.1] - unpublished
+== [0.1.1] - 03-02-2022
 
 - add forgotten config for `clj-kondo`
 - updated `deps-new`
