@@ -1,7 +1,7 @@
 = Change Log
 
 
-== [0.1.2] - unpublished
+== [0.1.2] - 05-02-2022
 
 - remove annoying git errors if there is no initialized git repo
 - add new `outdated:fix` command to automatically fix dependencies versions
