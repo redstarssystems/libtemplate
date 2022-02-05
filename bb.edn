@@ -31,18 +31,21 @@
       (-> (process cmd {:out :string}) check :out str/trim-newline))
 
     (defn safe-exec
-      "Execute command ignoring bad exit codes and put its output to a string."
-      [cmd]
-      (try (exec cmd)
-           (catch Exception e (prf "command failed: '%s', error message: '%s'" cmd (.getMessage e)))))
+      "Execute command ignoring bad exit codes and put its output to a string if success. Returns nil if error."
+      ([cmd] (safe-exec cmd true))
+      ([cmd print-errors?]
+       (try (exec cmd)
+            (catch Exception e
+              (when print-errors?
+                (prf "command failed: '%s', error message: '%s'" cmd (.getMessage e)))))))
+
 
     (def target-folder "target")
     (def release-branches #{"master"})
     (def deployable-branches #{"master" "develop"})
 
     (defn get-project-env []
-      (println "Ignore git errors if there is no fully initialized git repo.\n")
-      (let [git-branch (safe-exec "git rev-parse --abbrev-ref HEAD")
+      (let [git-branch (safe-exec "git rev-parse --abbrev-ref HEAD" false)
             release? (contains? release-branches git-branch)
             snapshot? (not release?)]
         {:target-folder target-folder
@@ -50,10 +53,10 @@
          :deployable-branches deployable-branches
          :build-time  (current-date)
          :build-timestamp current-timestamp
-         :git-url     (safe-exec "git config --get remote.origin.url")
+         :git-url     (safe-exec "git config --get remote.origin.url" false)
          :git-branch  git-branch
-         :git-sha     (safe-exec "git rev-parse --short HEAD")
-         :git-rev-count (safe-exec "git rev-list HEAD --count")
+         :git-sha     (safe-exec "git rev-parse --short HEAD" false)
+         :git-rev-count (safe-exec "git rev-list HEAD --count" false)
          :release?    release?
          :snapshot?   (not release?)
          :deployable? (contains? deployable-branches git-branch)})))
@@ -72,9 +75,11 @@
   repl         {:doc  "Run Clojure repl"
                 :task (clojure "-M:repl")}
 
-  ;;use `bb outdated --upgrade` or `bb outdated --upgrade --force`
   outdated     {:doc  "Check for outdated dependencies"
                 :task (clojure (str "-M:outdated " (apply str (interpose " " *command-line-args*))))}
+
+  outdated:fix  {:doc  "Check for outdated dependencies and fix"
+                :task (clojure (str "-M:outdated --upgrade --force" (apply str (interpose " " *command-line-args*))))}
 
   format       {:doc  "Format source code"
                 :task (shell "cljstyle fix")}

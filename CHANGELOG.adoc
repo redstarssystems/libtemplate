@@ -1,6 +1,11 @@
 = Change Log
 
 
+== [0.1.2] - unpublished
+
+- remove annoying git errors if there is no initialized git repo
+- add new `outdated:fix` command to automatically fix dependencies versions
+
 == [0.1.1] - 03-02-2022
 
 - add forgotten config for `clj-kondo`
