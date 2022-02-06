@@ -80,6 +80,7 @@ deploy       Deploy this library to Clojars
 test         Run tests
 repl         Run Clojure repl
 outdated     Check for outdated dependencies
+outdated:fix Check for outdated dependencies and fix
 format       Format source code
 lint         Lint source code
 requirements Install project requirements
