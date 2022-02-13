@@ -12,12 +12,12 @@
     (def ansi-reset "\u001B[0m")
     (def ansi-yellow "\u001B[33m")
     (def date-formatter (java.time.format.DateTimeFormatter/ofPattern "yyyy-MM-dd HH:mm:ss"))
-    (def current-timestamp (System/currentTimeMillis))
-    (defn current-date [] (.format
-                            (java.time.LocalDateTime/ofInstant
-                              (java.time.Instant/ofEpochMilli current-timestamp)
-                              (java.time.ZoneId/systemDefault))
-                            date-formatter))
+    (defn current-timestamp [] (System/currentTimeMillis))
+    (defn current-date [t] (.format
+                             (java.time.LocalDateTime/ofInstant
+                               (java.time.Instant/ofEpochMilli t)
+                               (java.time.ZoneId/systemDefault))
+                             date-formatter))
 
     (defn prf [& args] (println (apply format args)))
 
@@ -47,12 +47,13 @@
     (defn get-project-env []
       (let [git-branch (safe-exec "git rev-parse --abbrev-ref HEAD" false)
             release? (contains? release-branches git-branch)
-            snapshot? (not release?)]
+            snapshot? (not release?)
+            t (current-timestamp)]
         {:target-folder target-folder
          :release-branches release-branches
          :deployable-branches deployable-branches
-         :build-time  (current-date)
-         :build-timestamp current-timestamp
+         :build-time  (current-date t)
+         :build-timestamp t
          :git-url     (safe-exec "git config --get remote.origin.url" false)
          :git-branch  git-branch
          :git-sha     (safe-exec "git rev-parse --short HEAD" false)
@@ -61,8 +62,8 @@
          :snapshot?   (not release?)
          :deployable? (contains? deployable-branches git-branch)})))
 
-  :enter       (let [{:keys [name]} (current-task)] (prf "%s[ ] %s %s%s" ansi-yellow name (current-date) ansi-reset))
-  :leave       (let [{:keys [name]} (current-task)] (prf "%s[✔]︎ %s %s%s" ansi-green name (current-date) ansi-reset))
+  :enter       (let [{:keys [name]} (current-task)] (prf "%s[ ] %s %s%s" ansi-yellow name (current-date (current-timestamp)) ansi-reset))
+  :leave       (let [{:keys [name]} (current-task)] (prf "%s[✔]︎ %s %s%s" ansi-green name (current-date (current-timestamp)) ansi-reset))
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; commands
   clean        {:doc  "Clean target folder"

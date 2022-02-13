@@ -1,5 +1,8 @@
 = Change Log
 
+== [0.1.3] - 13-02-2022
+
+- fix frozen timestamp
 
 == [0.1.2] - 05-02-2022
 
